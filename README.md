@@ -45,6 +45,14 @@ implementation 'androidx.lifecycle:lifecycle-viewmodel-compose'
 ```
 **Purpose:** Integrates ViewModel support with Jetpack Compose, facilitating state management and lifecycle awareness in Compose applications.
 
+## OpenWeatherMap API calls:
+
+### Current weather data:
+https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+
+### Forecast for 5 days with data every 3 hours by geographic coordinates. All weather data can be obtained in JSON and XML formats.
+api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+
 ## Installation
 1. Clone the project repository:
    ```bash
