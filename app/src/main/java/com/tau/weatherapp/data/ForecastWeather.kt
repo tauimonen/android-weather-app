@@ -10,7 +10,7 @@ data class ForecastWeather(
     @SerializedName("cod")
     val cod: String? = null,
     @SerializedName("list")
-    val list: List<Item0?>? = null,
+    val list: List<ForecastItem?>? = null,
     @SerializedName("message")
     val message: Int? = null
 ) {
@@ -40,7 +40,7 @@ data class ForecastWeather(
         )
     }
 
-    data class Item0(
+    data class ForecastItem(
         @SerializedName("clouds")
         val clouds: Clouds? = null,
         @SerializedName("dt")
