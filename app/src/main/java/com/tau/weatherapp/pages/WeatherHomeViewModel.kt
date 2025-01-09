@@ -1,6 +1,9 @@
 package com.tau.weatherapp.pages
 
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.tau.weatherapp.data.CurrentWeather
 import com.tau.weatherapp.data.ForecastWeather
@@ -12,15 +15,17 @@ import kotlinx.coroutines.launch
 
 class WeatherHomeViewModel : ViewModel() {
     private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
+    var uiState: WeatherHomeUiState by mutableStateOf(WeatherHomeUiState.Loading)
     fun getWeatherData() {
         viewModelScope.launch {
-            try {
+            uiState =try {
                 val currentWeather = async { getCurrentWeatherData() }.await()
                 val forecastWeather = async { getForecastData() }.await()
-                Log.d("WeatherHomeViewModel", "Current Weather: ${currentWeather.main!!.temp}")
-                Log.d("WeatherHomeViewModel", "Current Weather: ${forecastWeather.list!!.size}")
+                //Log.d("WeatherHomeViewModel", "Current Weather: ${currentWeather.main!!.temp}")
+                //Log.d("WeatherHomeViewModel", "Current Weather: ${forecastWeather.list!!.size}")
+                WeatherHomeUiState.Success(Weather(currentWeather, forecastWeather))
             } catch (e: Exception) {
-
+                WeatherHomeUiState.Error
             }
         }
     }

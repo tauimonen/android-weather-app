@@ -14,18 +14,19 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import com.tau.weatherapp.R
 import com.tau.weatherapp.customuis.AppBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WeatherHomeScreen(modifier: Modifier = Modifier) {
+fun WeatherHomeScreen(
+    uiState: WeatherHomeUiState,
+    modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.fillMaxSize()
     ) {
         AppBackground(photoId = R.drawable.rain)
-        Scaffold (
+        Scaffold(
             topBar = {
                 TopAppBar(
                     title = { Text("Weather App", style = MaterialTheme.typography.titleLarge) },
@@ -36,12 +37,25 @@ fun WeatherHomeScreen(modifier: Modifier = Modifier) {
                 )
             },
             containerColor = Color.Transparent
-        ){
+        ) {
             Surface(
                 color = Color.Transparent,
                 modifier = Modifier.padding(it).fillMaxSize().wrapContentSize()
             ) {
-            Text("Weather Home Screen", style = MaterialTheme.typography.displaySmall)
+                when (uiState) {
+                    is WeatherHomeUiState.Error -> {
+                        Text("Failed to load data")
+                    }
+
+                    is WeatherHomeUiState.Loading -> {
+                        Text("Loading..")
+                    }
+
+                    is WeatherHomeUiState.Success -> {
+                        Text(uiState.weather.currentWeather.main!!.temp.toString(),
+                            style = MaterialTheme.typography.displayLarge)
+                    }
+                }
             }
         }
     }
