@@ -11,13 +11,19 @@ import com.tau.weatherapp.data.WeatherRepository
 import com.tau.weatherapp.data.WeatherRepositoryImpl
 import kotlinx.coroutines.async
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class WeatherHomeViewModel : ViewModel() {
     private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
     var uiState: WeatherHomeUiState by mutableStateOf(WeatherHomeUiState.Loading)
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        uiState = WeatherHomeUiState.Error
+    }
+
     fun getWeatherData() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             uiState =try {
                 val currentWeather = async { getCurrentWeatherData() }.await()
                 val forecastWeather = async { getForecastData() }.await()
@@ -31,7 +37,7 @@ class WeatherHomeViewModel : ViewModel() {
     }
 
     private suspend fun getCurrentWeatherData() : CurrentWeather {
-        val endUrl = "weather?lat=60.299727&lon=25.05390&appid=83644510d7f6d314a599f083be13dc06"
+        val endUrl = "weather?lat=60.299727&lon=25.05390&appid=83644510d7f6d314a599f083be13dc0"
         return weatherRepository.getCurrentWeather(endUrl)
     }
 
