@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.tau.weatherapp.R
 import com.tau.weatherapp.customuis.AppBackground
 import com.tau.weatherapp.data.CurrentWeather
+import com.tau.weatherapp.utils.getFormattedDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -87,6 +88,11 @@ fun CurrentWeatherSection(
     ) {
         Text(
             text = "${currentWeather.name}, ${currentWeather.sys?.country}",
+            style = MaterialTheme.typography.titleMedium
+        )
+        Text(
+            // Turn to non-nullable type with !! operator
+            text = getFormattedDate(currentWeather.dt!!, pattern = "MMM dd yyyy"),
             style = MaterialTheme.typography.titleMedium
         )
     }
