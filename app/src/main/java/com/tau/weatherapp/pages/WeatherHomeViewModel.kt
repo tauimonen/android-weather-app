@@ -31,6 +31,7 @@ class WeatherHomeViewModel : ViewModel() {
                 //Log.d("WeatherHomeViewModel", "Current Weather: ${forecastWeather.list!!.size}")
                 WeatherHomeUiState.Success(Weather(currentWeather, forecastWeather))
             } catch (e: Exception) {
+                Log.e("WeatherHomeViewModel", "Exception: ${e.message}")
                 WeatherHomeUiState.Error
             }
         }

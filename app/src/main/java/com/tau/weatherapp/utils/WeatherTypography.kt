@@ -27,7 +27,7 @@ val weatherTypography = Typography(
     titleMedium = Typography.titleMedium.copy(
         fontFamily = appFontFamily,
         color = Color.White,
-        fontSize = 30.sp
+        fontSize = 20.sp
     ),
     titleSmall = Typography.titleSmall.copy(
         fontFamily = appFontFamily,

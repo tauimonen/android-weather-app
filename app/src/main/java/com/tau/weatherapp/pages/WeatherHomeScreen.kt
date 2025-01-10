@@ -1,8 +1,11 @@
 package com.tau.weatherapp.pages
 
+import android.widget.Space
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -94,6 +97,12 @@ fun CurrentWeatherSection(
             // Turn to non-nullable type with !! operator
             text = getFormattedDate(currentWeather.dt!!, pattern = "MMM dd yyyy"),
             style = MaterialTheme.typography.titleMedium
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            // Convert Kelvin to Celsius by subtracting 273.15
+            text = "${currentWeather.main?.temp?.minus(273.15)?.toInt()}°C",
+            style = MaterialTheme.typography.displayLarge
         )
     }
 }
