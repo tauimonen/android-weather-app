@@ -26,7 +26,7 @@ fun AppBackground(
             .background(Color.Black)
             .alpha(0.7f)
             .blur(
-                radius = 2.dp,
+                radius = 7.dp,
                 edgeTreatment = BlurredEdgeTreatment.Unbounded
             )
     )

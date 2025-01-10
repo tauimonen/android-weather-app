@@ -1,6 +1,7 @@
 package com.tau.weatherapp.pages
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -12,10 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.tau.weatherapp.R
 import com.tau.weatherapp.customuis.AppBackground
+import com.tau.weatherapp.data.CurrentWeather
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,23 +44,50 @@ fun WeatherHomeScreen(
         ) {
             Surface(
                 color = Color.Transparent,
-                modifier = Modifier.padding(it).fillMaxSize().wrapContentSize()
+                modifier = Modifier
+                    .padding(it)
+                    .fillMaxSize()
+                    .wrapContentSize()
             ) {
                 when (uiState) {
-                    is WeatherHomeUiState.Error -> {
-                        Text("Failed to load data")
-                    }
+                    is WeatherHomeUiState.Error -> Text("Failed to load data")
 
-                    is WeatherHomeUiState.Loading -> {
-                        Text("Loading..")
-                    }
+                    is WeatherHomeUiState.Loading -> Text("Loading..")
 
-                    is WeatherHomeUiState.Success -> {
-                        Text(uiState.weather.currentWeather.main!!.temp.toString(),
-                            style = MaterialTheme.typography.displayLarge)
-                    }
+                    is WeatherHomeUiState.Success -> WeatherSection(weather = uiState.weather)
                 }
             }
         }
+    }
+}
+
+@Composable
+fun WeatherSection(
+    weather: Weather,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.padding(8.dp)
+    ) {
+        CurrentWeatherSection(
+            currentWeather = weather.currentWeather,
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+@Composable
+fun CurrentWeatherSection(
+    currentWeather: CurrentWeather,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "${currentWeather.name}, ${currentWeather.sys?.country}",
+            style = MaterialTheme.typography.titleMedium
+        )
     }
 }

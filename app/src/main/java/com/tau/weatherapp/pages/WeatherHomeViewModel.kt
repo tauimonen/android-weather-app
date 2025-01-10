@@ -37,7 +37,7 @@ class WeatherHomeViewModel : ViewModel() {
     }
 
     private suspend fun getCurrentWeatherData() : CurrentWeather {
-        val endUrl = "weather?lat=60.299727&lon=25.05390&appid=83644510d7f6d314a599f083be13dc0"
+        val endUrl = "weather?lat=60.299727&lon=25.05390&appid=83644510d7f6d314a599f083be13dc06"
         return weatherRepository.getCurrentWeather(endUrl)
     }
 
