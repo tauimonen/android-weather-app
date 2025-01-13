@@ -45,6 +45,16 @@ implementation 'androidx.lifecycle:lifecycle-viewmodel-compose'
 ```
 **Purpose:** Integrates ViewModel support with Jetpack Compose, facilitating state management and lifecycle awareness in Compose applications.
 
+6. Location Services for Android  
+Library: Google Play Services Location  
+Dependency:  
+
+```kotlin
+implementation 'com.google.android.gms:play-services-location:21.3.0'
+```
+
+**Purpose:** Provides APIs for accessing location-based services on Android, including geofencing, activity recognition, and location updates, to build location-aware applications effectively.
+
 ## OpenWeatherMap API calls:
 
 ### Current weather data:
