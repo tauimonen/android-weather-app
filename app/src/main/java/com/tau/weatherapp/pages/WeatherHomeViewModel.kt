@@ -18,8 +18,16 @@ class WeatherHomeViewModel : ViewModel() {
     private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
     var uiState: WeatherHomeUiState by mutableStateOf(WeatherHomeUiState.Loading)
 
+    private var latitude = 0.0
+    private var longitude = 0.0
+
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         uiState = WeatherHomeUiState.Error
+    }
+
+    fun setLocation(latitude: Double, longitude: Double) {
+        this.latitude = latitude
+        this.longitude = longitude
     }
 
     fun getWeatherData() {
@@ -38,12 +46,14 @@ class WeatherHomeViewModel : ViewModel() {
     }
 
     private suspend fun getCurrentWeatherData() : CurrentWeather {
-        val endUrl = "weather?lat=60.299727&lon=25.05390&appid=83644510d7f6d314a599f083be13dc06"
+        // val endUrl = "weather?lat=60.299727&lon=25.05390&appid=83644510d7f6d314a599f083be13dc06"
+        val endUrl = "weather?lat=$latitude&lon=$longitude&appid=83644510d7f6d314a599f083be13dc06"
         return weatherRepository.getCurrentWeather(endUrl)
     }
 
     private suspend fun getForecastData() : ForecastWeather {
-        val endUrl = "forecast?lat=60.299727&lon=25.05390&appid=83644510d7f6d314a599f083be13dc06"
+        // val endUrl = "forecast?lat=60.299727&lon=25.05390&appid=83644510d7f6d314a599f083be13dc06"
+        val endUrl = "forecast?lat=$latitude&lon=$longitude&appid=83644510d7f6d314a599f083be13dc06"
         return weatherRepository.getForecastWeather(endUrl)
     }
 }
