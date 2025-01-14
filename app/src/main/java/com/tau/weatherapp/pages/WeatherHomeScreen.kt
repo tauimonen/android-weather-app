@@ -120,14 +120,12 @@ fun CurrentWeatherSection(
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            // Convert Kelvin to Celsius by subtracting 273.15
-            text = "${currentWeather.main?.temp?.minus(273.15)?.toInt()}°C",
+            text = "${currentWeather.main?.temp?.toInt()}°C",
             style = MaterialTheme.typography.displayLarge
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            // Convert Kelvin to Celsius by subtracting 273.15
-            text = "feels like ${currentWeather.main?.feelsLike?.minus(273.15)?.toInt()}",
+            text = "feels like ${currentWeather.main?.feelsLike?.toInt()}",
             style = MaterialTheme.typography.titleMedium
         )
         Row(
@@ -231,7 +229,7 @@ fun ForecastWeatherItem(
                 error = painterResource(id = R.drawable.error)
             )
             Spacer(modifier = Modifier.height(10.dp))
-            Text("${item.main?.temp?.minus(273.15)?.toInt()}°C",
+            Text("${item.main?.temp?.toInt()}°C",
                 style = MaterialTheme.typography.titleMedium)
         }
     }
