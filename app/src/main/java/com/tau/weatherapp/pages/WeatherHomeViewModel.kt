@@ -1,17 +1,24 @@
 package com.tau.weatherapp.pages
 
+import android.app.Application
+import android.net.ConnectivityManager
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import com.tau.weatherapp.data.CurrentWeather
 import com.tau.weatherapp.data.ForecastWeather
 import com.tau.weatherapp.data.WeatherRepository
 import com.tau.weatherapp.data.WeatherRepositoryImpl
 import kotlinx.coroutines.async
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.tau.weatherapp.data.ConnectivityRepository
+import com.tau.weatherapp.data.DefaultConnectivityRepository
 import com.tau.weatherapp.utils.WEATHER_API_KEY
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.StateFlow
@@ -59,5 +66,17 @@ class WeatherHomeViewModel(
     private suspend fun getForecastData() : ForecastWeather {
         val endUrl = "forecast?lat=$latitude&lon=$longitude&appid=$WEATHER_API_KEY&units=metric"
         return weatherRepository.getForecastWeather(endUrl)
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = this[APPLICATION_KEY] as Application
+                val connectivityManager = application.getSystemService(ConnectivityManager::class.java)
+                WeatherHomeViewModel(
+                    connectivityRepository = DefaultConnectivityRepository(connectivityManager)
+                )
+            }
+        }
     }
 }
