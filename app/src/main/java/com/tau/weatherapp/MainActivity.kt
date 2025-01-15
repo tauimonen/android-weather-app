@@ -22,6 +22,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.tau.weatherapp.pages.ConnectivityState
 import com.tau.weatherapp.pages.WeatherHomeScreen
+import com.tau.weatherapp.pages.WeatherHomeUiState
 import com.tau.weatherapp.pages.WeatherHomeViewModel
 import com.tau.weatherapp.ui.theme.WeatherAppTheme
 
@@ -76,8 +77,12 @@ fun WeatherApp(
 
     WeatherAppTheme {
         WeatherHomeScreen(
+            onRefresh = {
+                weatherHomeViewModel.uiState = WeatherHomeUiState.Loading
+                weatherHomeViewModel.getWeatherData()
+            },
             isConnected = connectivityState == ConnectivityState.Available,
-            weatherHomeViewModel.uiState
+            uiState = weatherHomeViewModel.uiState
         )
     }
 }
