@@ -43,6 +43,7 @@ import com.tau.weatherapp.utils.getIconUrl
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeatherHomeScreen(
+    isConnected: Boolean,
     uiState: WeatherHomeUiState,
     modifier: Modifier = Modifier) {
     Box(
@@ -68,12 +69,16 @@ fun WeatherHomeScreen(
                     .fillMaxSize()
                     .wrapContentSize()
             ) {
-                when (uiState) {
-                    is WeatherHomeUiState.Error -> Text("Failed to load data")
+                if (!isConnected) {
+                    Text("No Internet Connection", style = MaterialTheme.typography.titleMedium)
+                } else {
+                    when (uiState) {
+                        is WeatherHomeUiState.Error -> Text("Failed to load data")
 
-                    is WeatherHomeUiState.Loading -> Text("Loading..")
+                        is WeatherHomeUiState.Loading -> Text("Loading..")
 
-                    is WeatherHomeUiState.Success -> WeatherSection(weather = uiState.weather)
+                        is WeatherHomeUiState.Success -> WeatherSection(weather = uiState.weather)
+                    }
                 }
             }
         }

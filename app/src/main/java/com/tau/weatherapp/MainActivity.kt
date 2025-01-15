@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.tau.weatherapp.pages.ConnectivityState
 import com.tau.weatherapp.pages.WeatherHomeScreen
 import com.tau.weatherapp.pages.WeatherHomeViewModel
 import com.tau.weatherapp.ui.theme.WeatherAppTheme
@@ -69,9 +71,14 @@ fun WeatherApp(
             }
         }
     }
-    weatherHomeViewModel.getWeatherData()
+
+    val connectivityState by weatherHomeViewModel.connectivityState.collectAsState()
+
     WeatherAppTheme {
-        WeatherHomeScreen(weatherHomeViewModel.uiState)
+        WeatherHomeScreen(
+            isConnected = connectivityState == ConnectivityState.Available,
+            weatherHomeViewModel.uiState
+        )
     }
 }
 

@@ -11,16 +11,23 @@ import com.tau.weatherapp.data.WeatherRepository
 import com.tau.weatherapp.data.WeatherRepositoryImpl
 import kotlinx.coroutines.async
 import androidx.lifecycle.viewModelScope
+import com.tau.weatherapp.data.ConnectivityRepository
 import com.tau.weatherapp.utils.WEATHER_API_KEY
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class WeatherHomeViewModel : ViewModel() {
+class WeatherHomeViewModel(
+    private val connectivityRepository: ConnectivityRepository
+) : ViewModel() {
     private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
     var uiState: WeatherHomeUiState by mutableStateOf(WeatherHomeUiState.Loading)
 
     private var latitude = 0.0
     private var longitude = 0.0
+
+    // Observe the connectivity state
+    val connectivityState: StateFlow<ConnectivityState> = connectivityRepository.connectivityState
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         uiState = WeatherHomeUiState.Error
