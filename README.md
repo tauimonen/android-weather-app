@@ -60,8 +60,8 @@ Library: Hilt for Dependency Injection
 Dependency:
 
 ```kotlin
-implementation "com.google.dagger:hilt-android:2.51.1"
-kapt "com.google.dagger:hilt-compiler:2.51.1"
+implementation "com.google.dagger:hilt-android:2.55"
+kapt "com.google.dagger:hilt-compiler:2.55"
 ```
 
 **Purpose:** Facilitates dependency injection in Android applications, simplifying the process of managing dependencies, promoting modularity, and improving testability. It integrates seamlessly with Jetpack components and Android's lifecycle.
