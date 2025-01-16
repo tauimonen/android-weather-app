@@ -91,9 +91,4 @@ api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 - **Google Fonts:** Dynamically apply custom fonts by specifying font families within the Compose UI.
 - **ViewModel Compose:** Manage state and lifecycle events seamlessly in Jetpack Compose.
 
-## License
-This project is distributed under the [MIT License](LICENSE).
-
-## Contribution
-Contributions are encouraged and appreciated! Feel free to submit pull requests or report any issues.
 
