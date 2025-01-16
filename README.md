@@ -45,7 +45,7 @@ implementation 'androidx.lifecycle:lifecycle-viewmodel-compose'
 ```
 **Purpose:** Integrates ViewModel support with Jetpack Compose, facilitating state management and lifecycle awareness in Compose applications.
 
-6. Location Services for Android  
+### 6. Location Services for Android  
 Library: Google Play Services Location  
 Dependency:  
 
@@ -54,6 +54,17 @@ implementation 'com.google.android.gms:play-services-location:21.3.0'
 ```
 
 **Purpose:** Provides APIs for accessing location-based services on Android, including geofencing, activity recognition, and location updates, to build location-aware applications effectively.
+
+### 7. Hilt Android Gradle Plugin
+Library: Hilt for Dependency Injection
+Dependency:
+
+```kotlin
+implementation "com.google.dagger:hilt-android:2.51.1"
+kapt "com.google.dagger:hilt-compiler:2.51.1"
+```
+
+**Purpose:** Facilitates dependency injection in Android applications, simplifying the process of managing dependencies, promoting modularity, and improving testability. It integrates seamlessly with Jetpack components and Android's lifecycle.
 
 ## OpenWeatherMap API calls:
 
