@@ -1,18 +1,22 @@
 package com.tau.weatherapp.data
 
 import com.tau.weatherapp.network.WeatherApi
+import com.tau.weatherapp.network.WeatherApiService
+import javax.inject.Inject
 
 interface WeatherRepository {
     suspend fun getCurrentWeather(endUrl: String): CurrentWeather
     suspend fun getForecastWeather(endUrl: String): ForecastWeather
 }
 
-class WeatherRepositoryImpl() : WeatherRepository {
+class WeatherRepositoryImpl @Inject constructor(
+    private val weatherApiService: WeatherApiService
+) : WeatherRepository {
     override suspend fun getCurrentWeather(endUrl: String): CurrentWeather {
-        return WeatherApi.retrofitService.getCurrentWeather(endUrl)
+        return weatherApiService.getCurrentWeather(endUrl)
     }
 
     override suspend fun getForecastWeather(endUrl: String): ForecastWeather {
-        return WeatherApi.retrofitService.getForecastWeather(endUrl)
+        return weatherApiService.getForecastWeather(endUrl)
     }
 }

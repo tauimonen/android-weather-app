@@ -25,7 +25,9 @@ import com.tau.weatherapp.pages.WeatherHomeScreen
 import com.tau.weatherapp.pages.WeatherHomeUiState
 import com.tau.weatherapp.pages.WeatherHomeViewModel
 import com.tau.weatherapp.ui.theme.WeatherAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +45,7 @@ fun WeatherApp(
     client: FusedLocationProviderClient,
     modifier: Modifier = Modifier
 ) {
-    val weatherHomeViewModel: WeatherHomeViewModel = viewModel(factory = WeatherHomeViewModel.Factory)
+    val weatherHomeViewModel: WeatherHomeViewModel = viewModel()
     val context = LocalContext.current
     var locationPermissionGranted by remember { mutableStateOf(false) }
     val launcher = rememberLauncherForActivityResult(

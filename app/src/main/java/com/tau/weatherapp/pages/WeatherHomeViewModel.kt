@@ -23,11 +23,12 @@ import com.tau.weatherapp.utils.WEATHER_API_KEY
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WeatherHomeViewModel(
+class WeatherHomeViewModel @Inject constructor(
+    private val weatherRepository: WeatherRepository,
     private val connectivityRepository: ConnectivityRepository
 ) : ViewModel() {
-    private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
     var uiState: WeatherHomeUiState by mutableStateOf(WeatherHomeUiState.Loading)
 
     private var latitude = 0.0
@@ -68,7 +69,7 @@ class WeatherHomeViewModel(
         return weatherRepository.getForecastWeather(endUrl)
     }
 
-    companion object {
+/*    companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = this[APPLICATION_KEY] as Application
@@ -78,5 +79,5 @@ class WeatherHomeViewModel(
                 )
             }
         }
-    }
+    }*/
 }
