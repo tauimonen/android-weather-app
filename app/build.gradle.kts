@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -58,7 +59,7 @@ dependencies {
     implementation(libs.coil.kt.coil.compose)
     implementation(libs.play.services.location)
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler.v2511)
+    kapt(libs.hilt.android.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

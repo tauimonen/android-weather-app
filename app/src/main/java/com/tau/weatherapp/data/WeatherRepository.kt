@@ -1,6 +1,5 @@
 package com.tau.weatherapp.data
 
-import com.tau.weatherapp.network.WeatherApi
 import com.tau.weatherapp.network.WeatherApiService
 import javax.inject.Inject
 
